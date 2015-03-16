@@ -170,8 +170,8 @@ different store location.
 In `ShopsTableViewController.m` file, set breakpoints to the following methods:
 
 * getAllShops
-* getAllOffers
-* getAllRecommendations
+* fetchOffersForPlaceID
+* fetchRecommendationsForPlaceID
 
 These methods are responsible for making the requests to the Mobile Assistant 
 Backend via the Google APIs Client Library for Objective-C.
