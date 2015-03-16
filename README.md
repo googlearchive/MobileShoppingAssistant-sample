@@ -53,7 +53,7 @@ datastore yet.
 local devserver does not support authentication, and some backend methods do
 require it.
 
-Now follow the instructions in [backend/MobileAssistant-Data/README.md](backend/MobileAssistant-Data/README.md)
+Now follow the instructions in [MobileAssistantAndroidAppEngine/backend/MobileAssistant-Data/README.md](MobileAssistantAndroidAppEngine/backend/MobileAssistant-Data/README.md)
 to insert dummy data (Place, Offer and Recommendation objects) inside the local datastore. Once 
 done, access the page at [http://localhost:8080/admin/buildsearchindex](http://localhost:8080/admin/buildsearchindex)
 to build the places index. Now if you hit the "Refresh Store List" button 
@@ -76,12 +76,12 @@ to obtain a *GCM_API_KEY* (Note: In the 'Enabling the GCM Service' step choose
  *WEB_CLIENT_ID*. For the Android Client ID the package name is
  'com.google.sample.mobileassistant' and for the iOS Client ID the bundle is
  'com.google.sample.MobileAssistantIOS'.
-3.  Open [backend/src/main/webapp/war/WEB-INF/appengine-web.xml](backend/src/main/webapp/war/WEB-INF/appengine-web.xml)
+3.  Open [MobileAssistantAndroidAppEngine/backend/src/main/webapp/WEB-INF/appengine-web.xml](MobileAssistantAndroidAppEngine/backend/src/main/webapp/WEB-INF/appengine-web.xml)
 and enter your *APPLICATION_ID* within the application XML element and the
 *GCM_API_KEY* in the property "gcm.api.key" XML element.
-4.  Open [backend/src/main/java/com/google/sample/mobileassistantbackend/Constants](backend/src/main/java/com/google/sample/mobileassistantbackend/Constants)
+4.  Open [MobileAssistantAndroidAppEngine/backend/src/main/java/com/google/sample/mobileassistantbackend/Constants.java](MobileAssistantAndroidAppEngine/backend/src/main/java/com/google/sample/mobileassistantbackend/Constants.java)
 and insert the API keys and IDs required.
-5.  Open [app/config.gradle](app/config.gradle) and insert *SENDER_ID*,
+5.  Open [MobileAssistantAndroidAppEngine/android/config.gradle](MobileAssistantAndroidAppEngine/android/config.gradle) and insert *SENDER_ID*,
 *WEB_CLIENT_ID*, the URL to your deployed application,
 which is [https://YOUR-APPLICATION-ID.appspot.com/\_ah/api/](https://YOUR-APPLICATION-ID.appspot.com/_ah/api/),
 and turn *SIGN_IN_REQUIRED* to "true".
@@ -89,8 +89,7 @@ and turn *SIGN_IN_REQUIRED* to "true".
 follow the instructions. You will need to login from Android Studio into the
 Google account used in the first step.
 7.  Insert data into the backend by following instructions in
-[backend/MobileAssistant-Data/README.md](backend/MobileAssistant-Data/README
-.md), using the URL of the deployed backend and the right Google credentials
+[MobileAssistantAndroidAppEngine/backend/MobileAssistant-Data/README.md](MobileAssistantAndroidAppEngine/backend/MobileAssistant-Data/README.md), using the URL of the deployed backend and the right Google credentials
 to login.
 8.  Run the Android application.
 
@@ -116,7 +115,7 @@ Note that the Bundle ID for this iOS client is *com.google.sample
 
 Make sure you have correctly imported sample data to the
 deployed backend following
-[backend/MobileAssistant-Data/README.md](backend/MobileAssistant-Data/README.md).
+[MobileAssistantAndroidAppEngine/backend/MobileAssistant-Data/README.md](MobileAssistantAndroidAppEngine/backend/MobileAssistant-Data/README.md).
 
 ### Set up Mobile Assistant iOS Client Xcode Project
 
@@ -137,7 +136,7 @@ the MobileAssistantIOS project:
 * kKeyClientID (in line 35)
 * kKeyClientSecret (in line 36)
 
-3. In the [MobileAssistantIOS/API/GTLServiceShoppingassistant.m](MobileAssistantIOS/API/GTLServiceShoppingassistant.m) file,
+3. In the [MobileAssistantIOS/API/GTLServiceShoppingAssistant.m](MobileAssistantIOS/API/GTLServiceShoppingAssistant.m) file,
 replace the string "{{{YOUR APP ID}}}" with the Application ID of where the
 Mobile Assistant Backend was deployed.
 
