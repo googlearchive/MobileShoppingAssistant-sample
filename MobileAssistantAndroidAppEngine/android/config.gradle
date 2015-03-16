@@ -1,0 +1,50 @@
+/*
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+apply plugin: 'com.android.application'
+
+android {
+
+    defaultConfig {
+        // The following values should be changed by the user
+
+        /**
+         * The URL to the API. Default when running locally on your computer:
+         * "http://10.0.2.2:8080/_ah/api/"
+         */
+        buildConfigField "String", "ROOT_URL",
+                "\"http://10.0.2.2:8080/_ah/api/\""
+                // The IP ADDRESS of your SERVER. Yours may be different.
+        /**
+         * Defines whether authentication is required or not. Only works once
+         * deployed on production AppEngine, not on local server.
+         */
+        buildConfigField "boolean", "SIGN_IN_REQUIRED", "false"
+        /**
+         * Substitute you own sender ID here. This is the project number you got
+         * from the API Console, as described in "Getting Started."
+         */
+        buildConfigField "String", "SENDER_ID", "\"YOUR-SENDER-ID\""
+        /**
+         * Web client ID from Google Cloud console.
+         */
+        buildConfigField "String", "WEB_CLIENT_ID", "\"YOUR-WEB-CLIENT-ID\""
+        /**
+         * Dummy location used in the emulator when developing.
+         */
+        buildConfigField "float", "DUMMY_LONGITUDE", "-122.11111f"
+        buildConfigField "float", "DUMMY_LATITUDE", "37.22222f"
+    }
+}
