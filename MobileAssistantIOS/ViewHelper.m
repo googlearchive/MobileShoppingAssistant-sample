@@ -61,15 +61,7 @@ int const kViewHelperDefaultCellImageWidth = 70;
   [popupView show];
 }
 
-+ (UIImage *)resizedImageWithImage:(UIImage *)image toSize:(CGSize)size {
-  UIGraphicsBeginImageContext(size);
-  [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-  UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  return newImage;
-}
-
-+ (CGFloat)heightForCellDetailWithLineCount:(int)textLength {
++ (CGFloat)heightForCellDetailWithLineCount:(NSInteger)textLength {
   return (textLength / kDetailTitleCharLengthPerLine) * kViewHelperDetailTitleHeightPerLine
           + kViewHelperDefaultCellHeight;
 }

@@ -23,22 +23,22 @@
 // Method compiled in debug builds just to check that all the needed support
 // classes are present at link time.
 + (NSArray *)checkClasses {
-  NSArray *classes = [NSArray
-      arrayWithObjects:
-          [GTLQueryShoppingAssistant class],
-          [GTLShoppingAssistantCheckIn class],
-          [GTLShoppingAssistantCheckInCollection class],
-          [GTLShoppingAssistantCollectionResponseRegistrationRecord class],
-          [GTLShoppingAssistantGeoPt class],
-          [GTLShoppingAssistantJsonMap class],
-          [GTLShoppingAssistantOffer class],
-          [GTLShoppingAssistantOfferCollection class],
-          [GTLShoppingAssistantPlace class],
-          [GTLShoppingAssistantPlaceInfo class],
-          [GTLShoppingAssistantPlaceInfoCollection class],
-          [GTLShoppingAssistantRecommendation class],
-          [GTLShoppingAssistantRecommendationCollection class],
-          [GTLShoppingAssistantRegistrationRecord class], nil];
+  NSArray *classes = [NSArray arrayWithObjects:
+                      [GTLQueryShoppingAssistant class],
+                      [GTLShoppingAssistantCheckIn class],
+                      [GTLShoppingAssistantCheckInCollection class],
+                      [GTLShoppingAssistantCollectionResponseRegistration class],
+                      [GTLShoppingAssistantGeoPt class],
+                      [GTLShoppingAssistantJsonMap class],
+                      [GTLShoppingAssistantOffer class],
+                      [GTLShoppingAssistantOfferCollection class],
+                      [GTLShoppingAssistantPlace class],
+                      [GTLShoppingAssistantPlaceInfo class],
+                      [GTLShoppingAssistantPlaceInfoCollection class],
+                      [GTLShoppingAssistantRecommendation class],
+                      [GTLShoppingAssistantRecommendationCollection class],
+                      [GTLShoppingAssistantRegistration class],
+                      nil];
   return classes;
 }
 #endif  // DEBUG
@@ -52,8 +52,7 @@
     // From discovery.  Where to send JSON-RPC.
     // Turn off prettyPrint for this service to save bandwidth (especially on
     // mobile). The fetcher logging will pretty print.
-    self.rpcURL = [NSURL URLWithString:@"https://{{{YOUR APP ID}}}.appspot.com/_ah/api/rpc"
-        @"?prettyPrint=false"];
+    self.rpcURL = [NSURL URLWithString:@"https://{{{YOUR APP ID}}}.appspot.com/_ah/api/rpc?prettyPrint=false"];
   }
   return self;
 }

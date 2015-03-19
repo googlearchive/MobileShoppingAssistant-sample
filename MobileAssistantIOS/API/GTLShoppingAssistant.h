@@ -17,7 +17,7 @@
 
 #import "GTLShoppingAssistantCheckIn.h"
 #import "GTLShoppingAssistantCheckInCollection.h"
-#import "GTLShoppingAssistantCollectionResponseRegistrationRecord.h"
+#import "GTLShoppingAssistantCollectionResponseRegistration.h"
 #import "GTLShoppingAssistantGeoPt.h"
 #import "GTLShoppingAssistantJsonMap.h"
 #import "GTLShoppingAssistantOffer.h"
@@ -27,7 +27,7 @@
 #import "GTLShoppingAssistantPlaceInfoCollection.h"
 #import "GTLShoppingAssistantRecommendation.h"
 #import "GTLShoppingAssistantRecommendationCollection.h"
-#import "GTLShoppingAssistantRegistrationRecord.h"
+#import "GTLShoppingAssistantRegistration.h"
 
 #import "GTLQueryShoppingAssistant.h"
 #import "GTLServiceShoppingAssistant.h"

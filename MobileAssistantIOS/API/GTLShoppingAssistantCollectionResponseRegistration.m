@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLShoppingAssistantCollectionResponseRegistrationRecord.m
+//  GTLShoppingAssistantCollectionResponseRegistration.m
 //
 
 // ----------------------------------------------------------------------------
@@ -13,23 +13,23 @@
 // Description:
 //   This is an API
 // Classes:
-//   GTLShoppingAssistantCollectionResponseRegistrationRecord (0 custom class methods, 2 custom properties)
+//   GTLShoppingAssistantCollectionResponseRegistration (0 custom class methods, 2 custom properties)
 
-#import "GTLShoppingAssistantCollectionResponseRegistrationRecord.h"
+#import "GTLShoppingAssistantCollectionResponseRegistration.h"
 
-#import "GTLShoppingAssistantRegistrationRecord.h"
+#import "GTLShoppingAssistantRegistration.h"
 
 // ----------------------------------------------------------------------------
 //
-//   GTLShoppingAssistantCollectionResponseRegistrationRecord
+//   GTLShoppingAssistantCollectionResponseRegistration
 //
 
-@implementation GTLShoppingAssistantCollectionResponseRegistrationRecord
+@implementation GTLShoppingAssistantCollectionResponseRegistration
 @dynamic items, nextPageToken;
 
 + (NSDictionary *)arrayPropertyToClassMap {
   NSDictionary *map =
-    [NSDictionary dictionaryWithObject:[GTLShoppingAssistantRegistrationRecord class]
+    [NSDictionary dictionaryWithObject:[GTLShoppingAssistantRegistration class]
                                 forKey:@"items"];
   return map;
 }

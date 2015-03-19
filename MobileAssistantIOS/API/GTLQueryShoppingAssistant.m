@@ -19,7 +19,7 @@
 
 #import "GTLShoppingAssistantCheckIn.h"
 #import "GTLShoppingAssistantCheckInCollection.h"
-#import "GTLShoppingAssistantCollectionResponseRegistrationRecord.h"
+#import "GTLShoppingAssistantCollectionResponseRegistration.h"
 #import "GTLShoppingAssistantJsonMap.h"
 #import "GTLShoppingAssistantOffer.h"
 #import "GTLShoppingAssistantOfferCollection.h"
@@ -263,7 +263,7 @@
   NSString *methodName = @"shoppingAssistant.registrations.listDevices";
   GTLQueryShoppingAssistant *query = [self queryWithMethodName:methodName];
   query.count = count;
-  query.expectedObjectClass = [GTLShoppingAssistantCollectionResponseRegistrationRecord class];
+  query.expectedObjectClass = [GTLShoppingAssistantCollectionResponseRegistration class];
   return query;
 }
 

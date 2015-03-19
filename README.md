@@ -169,7 +169,7 @@ different store location.
 ## Take a Closer Look at MobileAssistantIOS Client App
 In `ShopsTableViewController.m` file, set breakpoints to the following methods:
 
-* getAllShops
+* fetchAllShops
 * fetchOffersForPlaceID
 * fetchRecommendationsForPlaceID
 

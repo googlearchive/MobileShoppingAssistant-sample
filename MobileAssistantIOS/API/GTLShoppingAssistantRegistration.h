@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLShoppingAssistantRegistrationRecord.m
+//  GTLShoppingAssistantRegistration.h
 //
 
 // ----------------------------------------------------------------------------
@@ -13,15 +13,19 @@
 // Description:
 //   This is an API
 // Classes:
-//   GTLShoppingAssistantRegistrationRecord (0 custom class methods, 1 custom properties)
+//   GTLShoppingAssistantRegistration (0 custom class methods, 1 custom properties)
 
-#import "GTLShoppingAssistantRegistrationRecord.h"
+#if GTL_BUILT_AS_FRAMEWORK
+  #import "GTL/GTLObject.h"
+#else
+  #import "GTLObject.h"
+#endif
 
 // ----------------------------------------------------------------------------
 //
-//   GTLShoppingAssistantRegistrationRecord
+//   GTLShoppingAssistantRegistration
 //
 
-@implementation GTLShoppingAssistantRegistrationRecord
-@dynamic regId;
+@interface GTLShoppingAssistantRegistration : GTLObject
+@property (copy) NSString *regId;
 @end

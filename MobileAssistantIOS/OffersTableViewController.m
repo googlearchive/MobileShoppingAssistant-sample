@@ -71,19 +71,11 @@ enum { kOffers = 0, kRecommendations, kNumberOfSections };
 
 - (NSInteger)tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section {
-  NSUInteger count = 0;
   if (section == kOffers) {
-    count = [self.offers count];
-    if (count < NSIntegerMax) {
-      return (NSInteger)count;
-    }
+    return [self.offers count];
   } else if (section == kRecommendations) {
-    count = [self.recommendations count];
-    if (count < NSIntegerMax) {
-      return (NSInteger)count;
-    }
+    return [self.recommendations count];
   }
-
   return 0;
 }
 
@@ -104,8 +96,9 @@ enum { kOffers = 0, kRecommendations, kNumberOfSections };
   CGSize imageSize =
       CGSizeMake(kViewHelperDefaultCellImageWidth,
                  [self tableView:tableView heightForRowAtIndexPath:indexPath]);
-  cell.imageView.image =
-      [ViewHelper resizedImageWithImage:nil toSize:imageSize];
+  UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0);
+  cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -166,7 +159,8 @@ enum { kOffers = 0, kRecommendations, kNumberOfSections };
     // Offer section
     GTLShoppingAssistantOffer *offer =
         [self.offers objectAtIndex:indexPath.row];
-    return [ViewHelper heightForCellDetailWithLineCount:(int)offer.descriptionProperty.length];
+    NSInteger length = (NSInteger)offer.descriptionProperty.length;
+    return [ViewHelper heightForCellDetailWithLineCount:length];
 
   } else if (indexPath.section == kRecommendations) {
     // Recommendation section
@@ -183,8 +177,7 @@ enum { kOffers = 0, kRecommendations, kNumberOfSections };
                  tableCell:(ExtraPropertyUITableViewCell *)cell
             imageURLString:(NSString *)imageURLString
                  indexPath:(NSIndexPath *)indexPath {
-  GTMHTTPFetcher *imageFetcher =
-      [GTMHTTPFetcher fetcherWithURLString:imageURLString];
+  GTMHTTPFetcher *imageFetcher = [GTMHTTPFetcher fetcherWithURLString:imageURLString];
   imageFetcher.retryEnabled = YES;
   imageFetcher.comment = @"Cell image";
 

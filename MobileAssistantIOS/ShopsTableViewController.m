@@ -31,11 +31,11 @@
 @end
 
 @implementation ShopsTableViewController {
-  NSNumberFormatter *numberFormatter;
+  NSLengthFormatter *_lengthFormatter;
 }
 NSString *const kKeyChainName = @"MobileAssistantIOS";
 NSString *const kKeyClientID = @"{{{YOUR CLIENT ID}}}";
-NSString *const kKeyClientSecret = @"{{{YOU CLIENT SECRET}}}";
+NSString *const kKeyClientSecret = @"{{{YOUR CLIENT SECRET}}}";
 NSString *const kShopToOfferSequeID = @"showOffersDetails";
 NSString *const kShopTableCellID = @"ShopPrototypeCell";
 
@@ -165,6 +165,7 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
 - (void)unAuthenticateUser {
   [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeyChainName];
   [GTMOAuth2ViewControllerTouch revokeTokenForGoogleAuthentication:self.auth];
+  [self.auth reset];
 }
 
 #pragma mark - View first loaded
@@ -173,10 +174,8 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
   [super viewDidLoad];
 
   // Init localized number formatter
-  numberFormatter = [[NSNumberFormatter alloc] init];
-  [numberFormatter setLocale:[NSLocale currentLocale]];
-  [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-  [numberFormatter setMaximumFractionDigits:1];
+  _lengthFormatter = [[NSLengthFormatter alloc] init];
+  _lengthFormatter.numberFormatter.locale = [NSLocale currentLocale];
 
   // Turn on logging
   [GTMHTTPFetcher setLoggingEnabled:YES];
@@ -204,7 +203,7 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier
                                   sender:(UITableViewCell *)sender {
   if ([identifier isEqual:kShopToOfferSequeID]) {
-    if ([self.navigationItem.leftBarButtonItem.title isEqual:@"Sign out"]) {
+    if ([self.auth canAuthorize]) {
       return YES;
     } else {
       [ViewHelper showPopup:@"Warning"
@@ -224,8 +223,8 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
 
     // Check in first, which will then pull all offers and recommendations
     NSIndexPath *myIndexPath = [self.tableView indexPathForSelectedRow];
-    [self      checkIn:[self.shops objectAtIndex:myIndexPath.row]
-        nextController:offersViewController];
+    GTLShoppingAssistantPlaceInfo *place = [self.shops objectAtIndex:myIndexPath.row];
+    [self checkIn:place nextController:offersViewController];
 
     // Set a spinner for the in the goodies controller
     [ViewHelper showToolbarSpinnerForViewController:offersViewController];
@@ -248,11 +247,10 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
            fromLocation:(CLLocation *)oldLocation {
   // Update location once receive the GPS update from the phone
   self.currentLocation = newLocation;
-  NSLog(@"current location: %@", self.currentLocation);
   [self.locationManager stopUpdatingLocation];
 
   // Gets all the shops from backend only when the current location is set
-  [self getAllShops];
+  [self fetchAllShops];
 }
 
 #pragma mark - UITableView data source for shops
@@ -280,16 +278,8 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
   cell.detailTextLabel.numberOfLines = @2;
 
   float distance = [place.distanceInKilometers floatValue];
-  NSString *unit = @"km";
-  if (![[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]) {
-    static float kmToMileRatio = 0.621371;
-    distance = distance * kmToMileRatio;
-    unit = @"mi";
-  }
-
-  NSString *distanceString = [numberFormatter stringFromNumber:[NSNumber numberWithDouble:distance]];
-  cell.detailTextLabel.text = [NSString
-      stringWithFormat:@"Distance: %@%@\n%@", distanceString, unit, place.address];
+  NSString *distanceString = [_lengthFormatter stringFromMeters:distance*1000];
+  cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %@\n%@", distanceString, place.address];
 
   return cell;
 }
@@ -302,16 +292,15 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
 
 #pragma mark - Shops Model
 
-- (void)getAllShops {
+- (void)fetchAllShops {
   CLLocationCoordinate2D location = self.currentLocation.coordinate;
   if (CLLocationCoordinate2DIsValid(location)) {
     NSString *latitude = [NSString stringWithFormat:@"%.8f", location.latitude];
     NSString *longitude =
         [NSString stringWithFormat:@"%.8f", location.longitude];
 
-    NSLog(@"Current location in getAllShops: %@, %@", latitude, longitude);
-    GTLQueryShoppingAssistant *query = [GTLQueryShoppingAssistant
-        queryForPlacesGetPlacesWithLongitude:longitude
+    GTLQueryShoppingAssistant *query =
+      [GTLQueryShoppingAssistant queryForPlacesGetPlacesWithLongitude:longitude
                                     latitude:latitude
                                 distanceInKm:100
                                        count:100];
@@ -325,10 +314,9 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
             [ViewHelper showPopup:@"Error"
                           message:@"Unable to query a list of shops"
                            button:@"OK"];
-            NSLog(@"getAllSops error:%@", error);
+            NSLog(@"fetchAllSops error:%@", error);
           } else {
             self.shops = [object items];
-            NSLog(@"getAllSops shops%@", self.shops);
           }
         }];
   } else {
@@ -359,7 +347,6 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
           [self authenticateUser];
 
         } else {
-          NSLog(@"Checked in at placeID = %@", place.placeId);
           // Get a list of offers if it's not pulled before
           if (!nextController.offers) {
             [self fetchOffersForPlaceID:place.placeId nextController:nextController];
@@ -391,7 +378,6 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
                NSLog(@"Error while fetching offers: %@", error);
              } else {
                nextController.offers = [object items];
-               NSLog(@"Offers retrieved: %@", nextController.offers);
              }
            }];
 }
@@ -403,8 +389,7 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
   GTLQueryShoppingAssistant *query = [GTLQueryShoppingAssistant
       queryForRecommendationsListRecommendationsWithPlaceId:placeID];
 
-  [self.service
-           executeQuery:query
+  [self.service executeQuery:query
       completionHandler:^(GTLServiceTicket *ticket,
                           GTLShoppingAssistantRecommendationCollection *object,
                           NSError *error) {
@@ -415,8 +400,7 @@ NSString *const kShopTableCellID = @"ShopPrototypeCell";
           NSLog(@"Error while fetching recommendations: %@", error);
         } else {
           nextController.recommendations = [object items];
-          NSLog(@"Recomendations retrieved: %@",
-                nextController.recommendations);
+
         }
       }];
 }

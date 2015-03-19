@@ -195,7 +195,7 @@
 // Method: shoppingAssistant.registrations.listDevices
 //  Authorization scope(s):
 //   kGTLAuthScopeShoppingAssistantUserinfoEmail
-// Fetches a GTLShoppingAssistantCollectionResponseRegistrationRecord.
+// Fetches a GTLShoppingAssistantCollectionResponseRegistration.
 + (id)queryForRegistrationsListDevicesWithCount:(NSInteger)count;
 
 // Method: shoppingAssistant.registrations.registerDevice

@@ -45,9 +45,5 @@ extern int const kViewHelperDetailTitleHeightPerLine;
            button:(NSString *)label;
 
 // Calculate the UITableViewCell height based on text length provided.
-+ (CGFloat)heightForCellDetailWithLineCount:(int)textLength;
-
-// Convert input image size according to the input size.
-+ (UIImage *)resizedImageWithImage:(UIImage *)image toSize:(CGSize)size;
-
++ (CGFloat)heightForCellDetailWithLineCount:(NSInteger)textLength;
 @end

@@ -3,7 +3,7 @@
  */
 
 //
-//  GTLShoppingAssistantCollectionResponseRegistrationRecord.h
+//  GTLShoppingAssistantCollectionResponseRegistration.h
 //
 
 // ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@
 // Description:
 //   This is an API
 // Classes:
-//   GTLShoppingAssistantCollectionResponseRegistrationRecord (0 custom class methods, 2 custom properties)
+//   GTLShoppingAssistantCollectionResponseRegistration (0 custom class methods, 2 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -21,17 +21,17 @@
   #import "GTLObject.h"
 #endif
 
-@class GTLShoppingAssistantRegistrationRecord;
+@class GTLShoppingAssistantRegistration;
 
 // ----------------------------------------------------------------------------
 //
-//   GTLShoppingAssistantCollectionResponseRegistrationRecord
+//   GTLShoppingAssistantCollectionResponseRegistration
 //
 
 // This class supports NSFastEnumeration over its "items" property. It also
 // supports -itemAtIndex: to retrieve individual objects from "items".
 
-@interface GTLShoppingAssistantCollectionResponseRegistrationRecord : GTLCollectionObject
-@property (retain) NSArray *items;  // of GTLShoppingAssistantRegistrationRecord
+@interface GTLShoppingAssistantCollectionResponseRegistration : GTLCollectionObject
+@property (retain) NSArray *items;  // of GTLShoppingAssistantRegistration
 @property (copy) NSString *nextPageToken;
 @end
