@@ -183,7 +183,7 @@ to learn more about generating iOS client library for Google Cloud Endpoint.
 
 ## Contributing changes
 
-* See [CONTRIB.md](CONTRIB.md)
+* See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 
 ## Licensing
