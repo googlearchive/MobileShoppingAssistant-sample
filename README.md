@@ -4,7 +4,7 @@
 demonstrates how to build a mobile backend that will power Android and iOS
 native applications and expose an API using Google Cloud Endpoints.
 
-A [tutorial](https://cloud.google.com/developers/articles/mobile-application-solutions/)
+A [tutorial](https://cloud.google.com/solutions/mobile/how-to-build-mobile-app-with-app-engine-backend-tutorial/)
 is available on the Google Cloud Platform documentation.
 
 ### Author
