@@ -4,7 +4,7 @@ This repository is deprecated and no longer maintained, for endpoint examples, p
 
 * [appengine-endpoints-tictactoe-java](https://github.com/GoogleCloudPlatform/appengine-endpoints-tictactoe-java)
 * [appengine-endpoints-tictactoe-java-maven](https://github.com/GoogleCloudPlatform/appengine-endpoints-tictactoe-java-maven)
-* [appengine-endpoints-tictactoe-android)](https://github.com/GoogleCloudPlatform/appengine-endpoints-tictactoe-android)
+* [appengine-endpoints-tictactoe-android](https://github.com/GoogleCloudPlatform/appengine-endpoints-tictactoe-android)
 * [appengine-endpoints-tictactoe-ios](https://github.com/GoogleCloudPlatform/appengine-endpoints-tictactoe-ios)
 * [appengine-endpoints-tictactoe-python](https://github.com/GoogleCloudPlatform/appengine-endpoints-tictactoe-python)
 
